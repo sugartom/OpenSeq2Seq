@@ -19,8 +19,8 @@ from __future__ import division
 from __future__ import print_function
 
 import tensorflow as tf
-import open_seq2seq.parts.transformer.utils as model_utils
-from open_seq2seq.parts.transformer.utils import _NEG_INF as NEG_INF
+import OpenSeq2Seq.open_seq2seq.parts.transformer.utils as model_utils
+from OpenSeq2Seq.open_seq2seq.parts.transformer.utils import _NEG_INF as NEG_INF
 
 class ModelUtilsTest(tf.test.TestCase):
 

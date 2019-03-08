@@ -8,8 +8,8 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 import math
-from open_seq2seq.parts.convs2s.utils import gated_linear_units
-from open_seq2seq.parts.transformer.common import LayerNormalization
+from OpenSeq2Seq.open_seq2seq.parts.convs2s.utils import gated_linear_units
+from OpenSeq2Seq.open_seq2seq.parts.transformer.common import LayerNormalization
 
 
 class Conv1DNetworkNormalized(tf.layers.Layer):

@@ -13,8 +13,8 @@ from six.moves import range
 import inspect
 import python_speech_features as psf
 
-from open_seq2seq.data.data_layer import DataLayer
-from open_seq2seq.data.utils import load_pre_existing_vocabulary
+from OpenSeq2Seq.open_seq2seq.data.data_layer import DataLayer
+from OpenSeq2Seq.open_seq2seq.data.utils import load_pre_existing_vocabulary
 from .speech_utils import get_speech_features_from_file, get_speech_features
 import sentencepiece as spm
 

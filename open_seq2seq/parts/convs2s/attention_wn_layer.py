@@ -8,7 +8,7 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 import math
-from open_seq2seq.parts.convs2s.ffn_wn_layer import FeedFowardNetworkNormalized
+from OpenSeq2Seq.open_seq2seq.parts.convs2s.ffn_wn_layer import FeedFowardNetworkNormalized
 
 
 class AttentionLayerNormalized(tf.layers.Layer):
