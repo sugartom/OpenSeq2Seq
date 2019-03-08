@@ -109,6 +109,9 @@ class Speech2TextDataLayer(DataLayer):
 
     self._files = None
     if self.params["interactive"]:
+      self.params['max_duration'] = params.get('max_duration', -1.0)
+      self.params['window_size'] = params.get('window_size', 20e-3)
+      self.params['window_stride'] = params.get('window_stride', 10e-3)
       return
     for csv in params['dataset_files']:
       files = pd.read_csv(csv, encoding='utf-8')
