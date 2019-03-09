@@ -160,7 +160,7 @@ class ParallelTextDataLayer(DataLayer):
       return lst + [SpecialTextTokens.PAD_ID.value] * (8 - len(lst) % 8)
 
   def _src_token_to_id(self, line):
-    tokens = line.decode("utf-8").split(self._delimiter) #line.numpy().decode
+    tokens = line.split(self._delimiter) #line.numpy().decode
     if self._use_start_token:
       return np.array(self._pad2eight([SpecialTextTokens.S_ID.value] + \
              [self.src_seq2idx.get(token, SpecialTextTokens.UNK_ID.value) for token in tokens[:self.max_len-2]] + \
