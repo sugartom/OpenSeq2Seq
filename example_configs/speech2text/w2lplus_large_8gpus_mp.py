@@ -1,11 +1,11 @@
 # pylint: skip-file
 import tensorflow as tf
-from open_seq2seq.models import Speech2Text
-from open_seq2seq.encoders import TDNNEncoder
-from open_seq2seq.decoders import FullyConnectedCTCDecoder
-from open_seq2seq.data import Speech2TextDataLayer
-from open_seq2seq.losses import CTCLoss
-from open_seq2seq.optimizers.lr_policies import poly_decay
+from OpenSeq2Seq.open_seq2seq.models import Speech2Text
+from OpenSeq2Seq.open_seq2seq.encoders import TDNNEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import FullyConnectedCTCDecoder
+from OpenSeq2Seq.open_seq2seq.data import Speech2TextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import CTCLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import poly_decay
 
 
 base_model = Speech2Text
@@ -15,7 +15,7 @@ base_params = {
     "use_horovod": True,
     "num_epochs": 200,
 
-    "num_gpus": 8,
+    "num_gpus": 1,
     "batch_size_per_gpu": 64,
     "iter_size": 1,
 
@@ -134,44 +134,55 @@ base_params = {
     "loss_params": {},
 }
 
-train_params = {
-    "data_layer": Speech2TextDataLayer,
-    "data_layer_params": {
-        "num_audio_features": 64,
-        "input_type": "logfbank",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
-        "dataset_files": [
-            "data/librispeech/librivox-train-clean-100.csv",
-            "data/librispeech/librivox-train-clean-360.csv",
-            "data/librispeech/librivox-train-other-500.csv",
-        ],
-        "max_duration": 16.7,
-        "shuffle": True,
-    },
-}
+# train_params = {
+#     "data_layer": Speech2TextDataLayer,
+#     "data_layer_params": {
+#         "num_audio_features": 64,
+#         "input_type": "logfbank",
+#         "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+#         "dataset_files": [
+#             "data/librispeech/librivox-train-clean-100.csv",
+#             "data/librispeech/librivox-train-clean-360.csv",
+#             "data/librispeech/librivox-train-other-500.csv",
+#         ],
+#         "max_duration": 16.7,
+#         "shuffle": True,
+#     },
+# }
 
-eval_params = {
-    "data_layer": Speech2TextDataLayer,
-    "data_layer_params": {
-        "num_audio_features": 64,
-        "input_type": "logfbank",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
-        "dataset_files": [
-            "data/librispeech/librivox-dev-clean.csv",
-        ],
-        "shuffle": False,
-    },
-}
+# eval_params = {
+#     "data_layer": Speech2TextDataLayer,
+#     "data_layer_params": {
+#         "num_audio_features": 64,
+#         "input_type": "logfbank",
+#         "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+#         "dataset_files": [
+#             "data/librispeech/librivox-dev-clean.csv",
+#         ],
+#         "shuffle": False,
+#     },
+# }
 
-infer_params = {
+# infer_params = {
+#     "data_layer": Speech2TextDataLayer,
+#     "data_layer_params": {
+#         "num_audio_features": 64,
+#         "input_type": "logfbank",
+#         "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+#         "dataset_files": [
+#             "data/librispeech/librivox-test-clean.csv",
+#         ],
+#         "shuffle": False,
+#     },
+# }
+
+interactive_infer_params = {
     "data_layer": Speech2TextDataLayer,
     "data_layer_params": {
         "num_audio_features": 64,
-        "input_type": "logfbank",
-        "vocab_file": "open_seq2seq/test_utils/toy_speech_data/vocab.txt",
-        "dataset_files": [
-            "data/librispeech/librivox-test-clean.csv",
-        ],
+        "input_type": "spectrogram",
+        "vocab_file": "OpenSeq2Seq/open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+        "dataset_files": [],
         "shuffle": False,
     },
 }
