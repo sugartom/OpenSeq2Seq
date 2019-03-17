@@ -65,7 +65,7 @@ base_params = {
   "eval_steps": 500,
   "save_checkpoint_steps": 2500,
   "save_to_tensorboard": True,
-  "logdir": "../tacotron-LJ-float/checkpoint/",
+  "logdir": "checkpoints/tacotron-LJ-float/checkpoint/",
 #  "logdir": "result/tacotron-LJ-float",
   "max_grad_norm":1.,
 

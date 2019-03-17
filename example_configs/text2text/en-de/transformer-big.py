@@ -1,13 +1,13 @@
 # pylint: skip-file
 from __future__ import absolute_import, division, print_function
-from open_seq2seq.models import Text2Text
-from open_seq2seq.encoders import TransformerEncoder
-from open_seq2seq.decoders import TransformerDecoder
-from open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
-from open_seq2seq.losses import PaddedCrossEntropyLossWithSmoothing
-from open_seq2seq.data.text2text.text2text import SpecialTextTokens
-from open_seq2seq.data.text2text.tokenizer import EOS_ID
-from open_seq2seq.optimizers.lr_policies import transformer_policy
+from OpenSeq2Seq.open_seq2seq.models import Text2Text
+from OpenSeq2Seq.open_seq2seq.encoders import TransformerEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import TransformerDecoder
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
+from OpenSeq2Seq.open_seq2seq.losses import PaddedCrossEntropyLossWithSmoothing
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import SpecialTextTokens
+from OpenSeq2Seq.open_seq2seq.data.text2text.tokenizer import EOS_ID
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import transformer_policy
 import tensorflow as tf
 
 """
@@ -20,10 +20,10 @@ d_model = 1024
 num_layers = 6
 
 # REPLACE THIS TO THE PATH WITH YOUR WMT DATA
-data_root = "[REPLACE THIS TO THE PATH WITH YOUR WMT DATA]"
+data_root = "/home/oscar/sdb3/data/wmt16_de_en/"
 
 base_params = {
-  "use_horovod": True,
+  "use_horovod": False,
   "num_gpus": 1, # when using Horovod we set number of workers with params to mpirun
   "batch_size_per_gpu": 256,  # this size is in sentence pairs, reduce it if you get OOM
   "max_steps": 300000,
@@ -128,6 +128,24 @@ infer_params = {
     "tgt_vocab_file": data_root+"m_common.vocab",
     "source_file": data_root+"wmt14-en-de.src.BPE_common.32K.tok",
     "target_file": data_root+"wmt14-en-de.src.BPE_common.32K.tok",
+    "delimiter": " ",
+    "shuffle": False,
+    "repeat": False,
+    "max_length": 256,
+  },
+}
+
+interactive_infer_params = {
+  "batch_size_per_gpu": 1,
+  "data_layer": ParallelTextDataLayer,
+  "data_layer_params": {
+    "src_vocab_file": "checkpoints/Transformer-FP32-H-256/m_common.vocab",
+    "tgt_vocab_file": "checkpoints/Transformer-FP32-H-256/m_common.vocab",
+#    "source_file": data_root+"test.src.tok",
+#    "target_file": data_root+"test.src.tok",
+    "source_file": "checkpoints/Transformer-FP32-H-256/wmt14-en-de.src.BPE_common.32K.tok",
+    "target_file": "checkpoints/Transformer-FP32-H-256/wmt14-en-de.src.BPE_common.32K.tok",
+#    "target_file": data_root+"wmt14-en-de.src.BPE_common.32K.tok",
     "delimiter": " ",
     "shuffle": False,
     "repeat": False,

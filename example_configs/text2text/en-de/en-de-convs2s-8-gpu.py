@@ -3,17 +3,17 @@ from __future__ import unicode_literals
 
 import tensorflow as tf
 
-from open_seq2seq.models import Text2Text
-from open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
-from open_seq2seq.data.text2text.text2text import SpecialTextTokens
-from open_seq2seq.data.text2text.tokenizer import EOS_ID
+from OpenSeq2Seq.open_seq2seq.models import Text2Text
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import ParallelTextDataLayer
+from OpenSeq2Seq.open_seq2seq.data.text2text.text2text import SpecialTextTokens
+from OpenSeq2Seq.open_seq2seq.data.text2text.tokenizer import EOS_ID
 
-from open_seq2seq.encoders import ConvS2SEncoder
-from open_seq2seq.decoders import ConvS2SDecoder
+from OpenSeq2Seq.open_seq2seq.encoders import ConvS2SEncoder
+from OpenSeq2Seq.open_seq2seq.decoders import ConvS2SDecoder
 
-from open_seq2seq.losses import BasicSequenceLoss
-from open_seq2seq.optimizers.lr_policies import transformer_policy
-from open_seq2seq.parts.convs2s.utils import gated_linear_units
+from OpenSeq2Seq.open_seq2seq.losses import BasicSequenceLoss
+from OpenSeq2Seq.open_seq2seq.optimizers.lr_policies import transformer_policy
+from OpenSeq2Seq.open_seq2seq.parts.convs2s.utils import gated_linear_units
 
 import math
 """
@@ -22,7 +22,7 @@ https://arxiv.org/pdf/1705.03122
 """
 
 # REPLACE THIS TO THE PATH WITH YOUR WMT DATA
-data_root = "[REPLACE THIS TO THE PATH WITH YOUR WMT DATA]"
+data_root = "/home/oscar/sdb3/data/wmt16_de_en/"
 
 base_model = Text2Text
 num_layers = 15
@@ -36,7 +36,7 @@ scaling_factor = math.sqrt(0.5)
 max_length = 64
 
 base_params = {
-  "use_horovod": True,
+  "use_horovod": False,
   "num_gpus": 1, # Use 8 horovod workers to train on 8 GPUs
 
   # max_step is set for 35 epochs on 8 gpus with batch size of 64,
@@ -188,4 +188,22 @@ infer_params = {
     "prefetch_buffer_size": 1,
   },
 
+}
+
+interactive_infer_params = {
+  "batch_size_per_gpu": 1,
+  "data_layer": ParallelTextDataLayer,
+  "data_layer_params": {
+    "src_vocab_file": "checkpoints/Transformer-FP32-H-256/m_common.vocab",
+    "tgt_vocab_file": "checkpoints/Transformer-FP32-H-256/m_common.vocab",
+#    "source_file": data_root+"test.src.tok",
+#    "target_file": data_root+"test.src.tok",
+    "source_file": "checkpoints/Transformer-FP32-H-256/wmt14-en-de.src.BPE_common.32K.tok",
+    "target_file": "checkpoints/Transformer-FP32-H-256/wmt14-en-de.src.BPE_common.32K.tok",
+#    "target_file": data_root+"wmt14-en-de.src.BPE_common.32K.tok",
+    "delimiter": " ",
+    "shuffle": False,
+    "repeat": False,
+    "max_length": 256,
+  },
 }
