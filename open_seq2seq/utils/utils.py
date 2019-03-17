@@ -511,11 +511,12 @@ def get_base_config(args):
       'eval',
       'train_eval',
       'infer',
-      'interactive_infer'
+      'interactive_infer',
+      'tf_serving_infer'
   ]:
     raise ValueError("Mode has to be one of "
                      "['train', 'eval', 'train_eval', 'infer', "
-                     "'interactive_infer']")
+                     "'interactive_infer', 'tf_serving_infer']")
   config_module = runpy.run_path(args.config_file, init_globals={'tf': tf})
 
   base_config = config_module.get('base_params', None)
@@ -785,8 +786,10 @@ def create_model(args, base_config, config_module, base_model, hvd,
   elif args.mode == 'eval':
     model = base_model(params=eval_config, mode="eval", hvd=hvd)
     model.compile(force_var_reuse=False)
-  else:
+  elif args.mode == 'infer' or args.mode == 'interactive_infer':
     model = base_model(params=infer_config, mode=args.mode, hvd=hvd)
     model.compile(checkpoint=checkpoint)
+  else:
+    model = base_model(params=infer_config, mode='interactive_infer', hvd=hvd)
 
   return model
