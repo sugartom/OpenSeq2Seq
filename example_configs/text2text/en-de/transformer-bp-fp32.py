@@ -154,3 +154,21 @@ interactive_infer_params = {
     "max_length": 256,
   },
 }
+
+tf_serving_infer_params = {
+  "batch_size_per_gpu": 1,
+  "data_layer": ParallelTextDataLayer,
+  "data_layer_params": {
+    "src_vocab_file": "checkpoints/Transformer-FP32-H-256/m_common.vocab",
+    "tgt_vocab_file": "checkpoints/Transformer-FP32-H-256/m_common.vocab",
+#    "source_file": data_root+"test.src.tok",
+#    "target_file": data_root+"test.src.tok",
+    "source_file": "checkpoints/Transformer-FP32-H-256/wmt14-en-de.src.BPE_common.32K.tok",
+    "target_file": "checkpoints/Transformer-FP32-H-256/wmt14-en-de.src.BPE_common.32K.tok",
+#    "target_file": data_root+"wmt14-en-de.src.BPE_common.32K.tok",
+    "delimiter": " ",
+    "shuffle": False,
+    "repeat": False,
+    "max_length": 256,
+  },
+}

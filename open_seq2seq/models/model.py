@@ -240,8 +240,13 @@ class Model:
     # parameter checks
     self._mode = mode
     self._interactive = False
+    self._tf_serving_infer = False
     if self._mode == "interactive_infer":
       self._mode = "infer"
+      self._interactive = True
+    if self._mode == "tf_serving_infer":
+      self._mode = "infer"
+      self._tf_serving_infer = True
       self._interactive = True
 
     if self._mode not in ["train", "infer", "eval"]:
@@ -323,7 +328,6 @@ class Model:
     dl_params['mode'] = self._mode
     dl_params['interactive'] = self._interactive
 
-
     if self.on_horovod:
       self._data_layer = self._params['data_layer'](
           params=dl_params, model=self,
@@ -378,6 +382,10 @@ class Model:
     else:
       init_dict = self.params.get('initializer_params', {})
       initializer = self.params['initializer'](**init_dict)
+
+    if self._tf_serving_infer:
+      self.get_data_layer().create_interactive_placeholders()
+      return
 
     if not self.on_horovod:  # not using Horovod
       # below we follow data parallelism for multi-GPU training

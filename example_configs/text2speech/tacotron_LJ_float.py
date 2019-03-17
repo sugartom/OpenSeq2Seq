@@ -239,3 +239,12 @@ interactive_infer_params = {
     "shuffle": False,
   },
 }
+
+tf_serving_infer_params = {
+  "data_layer_params": {
+    "dataset_files": [],
+    "duration_max":10000,
+    "duration_min":0,
+    "shuffle": False,
+  },
+}

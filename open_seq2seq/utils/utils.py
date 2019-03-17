@@ -752,7 +752,12 @@ def create_model(args, base_config, config_module, base_model, hvd,
     if hvd is None or hvd.rank() == 0:
       deco_print("Inference config:")
       pprint.pprint(infer_config)
-
+  if args.mode == "tf_serving_infer":
+    if "tf_serving_infer_params" in config_module:
+      nested_update(
+          infer_config,
+          copy.deepcopy(config_module['tf_serving_infer_params'])
+      )
 
   if args.benchmark:
     deco_print("Adjusting config for benchmarking")
@@ -790,6 +795,7 @@ def create_model(args, base_config, config_module, base_model, hvd,
     model = base_model(params=infer_config, mode=args.mode, hvd=hvd)
     model.compile(checkpoint=checkpoint)
   else:
-    model = base_model(params=infer_config, mode='interactive_infer', hvd=hvd)
+    model = base_model(params=infer_config, mode=args.mode, hvd=hvd)
+    model.compile()
 
   return model
