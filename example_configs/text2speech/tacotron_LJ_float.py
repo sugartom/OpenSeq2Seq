@@ -184,7 +184,7 @@ base_params = {
     "dataset": dataset,
     "num_audio_features": num_audio_features,
     "output_type": output_type,
-    "vocab_file": "OpenSeq2Seq/open_seq2seq/test_utils/vocab_tts.txt",
+    "vocab_file": "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/OpenSeq2Seq/open_seq2seq/test_utils/vocab_tts.txt",
     'dataset_location':dataset_location,
     "mag_power": 1,
     "pad_EOS": True,

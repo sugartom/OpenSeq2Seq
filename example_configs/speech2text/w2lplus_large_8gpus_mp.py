@@ -181,7 +181,7 @@ interactive_infer_params = {
     "data_layer_params": {
         "num_audio_features": 64,
         "input_type": "spectrogram",
-        "vocab_file": "OpenSeq2Seq/open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+        "vocab_file": "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/OpenSeq2Seq/open_seq2seq/test_utils/toy_speech_data/vocab.txt",
         "dataset_files": [],
         "shuffle": False,
     },
@@ -192,7 +192,7 @@ tf_serving_infer_params = {
     "data_layer_params": {
         "num_audio_features": 64,
         "input_type": "spectrogram",
-        "vocab_file": "OpenSeq2Seq/open_seq2seq/test_utils/toy_speech_data/vocab.txt",
+        "vocab_file": "/home/yitao/Documents/fun-project/tensorflow-related/miniature-winner/OpenSeq2Seq/open_seq2seq/test_utils/toy_speech_data/vocab.txt",
         "dataset_files": [],
         "shuffle": False,
     },
