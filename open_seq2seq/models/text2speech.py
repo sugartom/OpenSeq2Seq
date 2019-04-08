@@ -159,7 +159,8 @@ def save_audio(
     summary = tf.Summary.Value(tag=tag, audio=summary)
     return summary
   elif save_format == "disk":
-    file_name = '{}/sample_step{}_{}_{}.wav'.format(logdir, step, number, mode)
+    # file_name = '{}/sample_step{}_{}_{}.wav'.format(logdir, step, number, mode)
+    file_name = '%s/output-%s.wav' % (logdir, step)
     if logdir[0] != '/':
       file_name = "./" + file_name
     write(file_name, sampling_rate, signal)
