@@ -7,8 +7,8 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from six.moves import range
-import matplotlib as mpl
-mpl.use('Agg')
+# import matplotlib as mpl
+# mpl.use('Agg')
 import matplotlib.pyplot as plt
 from io import BytesIO
 
